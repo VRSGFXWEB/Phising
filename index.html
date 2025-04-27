@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -6,29 +6,27 @@
   <title>VRS LINK</title>
   <style>
     body {
-      background: linear-gradient(135deg, #121212, #1f1f1f);
-      color: #00ffaa;
+      background: linear-gradient(135deg, #f0f0f0, #e1e1e1);
+      color: #333;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       padding: 60px 20px;
       overflow: hidden;
-      animation: fadeIn 2s ease-in;
     }
     h1 {
       font-size: 3.5em;
       margin-bottom: 30px;
-      color: #00ffee;
-      text-shadow: 0 0 25px #00ffee, 0 0 5px #00ffee;
-      animation: glow 2s infinite alternate;
+      color: #333;
+      text-shadow: 0 0 5px #333, 0 0 10px #888;
     }
     p {
       font-size: 1.2em;
       margin-bottom: 40px;
-      color: #00fff0;
+      color: #666;
     }
     button {
-      background: #00ffaa;
-      color: #000;
+      background: #4CAF50;
+      color: white;
       font-size: 20px;
       font-weight: bold;
       padding: 15px 30px;
@@ -37,58 +35,38 @@
       cursor: pointer;
       transition: 0.3s;
       margin-top: 20px;
-      box-shadow: 0 4px 12px rgba(0, 255, 170, 0.3);
     }
     button:hover {
-      background: #00e6b8;
-      transform: scale(1.1);
-      box-shadow: 0 4px 15px rgba(0, 255, 170, 0.5);
+      background: #45a049;
     }
     #status {
       margin-top: 30px;
       font-size: 18px;
-      color: #00ffee;
-      border-right: 2px solid #00ffaa;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 4s steps(40) infinite alternate;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00ffee; }
-      to { text-shadow: 0 0 20px #00ffee, 0 0 30px #00ffaa; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0 }
-      to { opacity: 1 }
+      color: #333;
     }
     .link-container {
       margin-top: 50px;
       font-size: 1.3em;
-      color: #00ffaa;
+      color: #4CAF50;
     }
     .link-container a {
-      color: #00ffee;
+      color: #4CAF50;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
-      font-size: 1.4em;
     }
     .link-container a:hover {
-      color: #00e6b8;
+      color: #388e3c;
     }
     .popup {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: #00ffaa;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
       padding: 20px;
       border-radius: 10px;
       width: 90%;
       max-width: 500px;
       margin: auto;
-      box-shadow: 0 0 15px rgba(0, 255, 170, 0.6);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
       display: none;
       position: fixed;
       top: 50%;
@@ -97,7 +75,7 @@
     }
     .popup h2 {
       font-size: 2em;
-      color: #00ffee;
+      color: #4CAF50;
     }
     .popup p {
       font-size: 1.1em;
@@ -120,8 +98,8 @@
 </head>
 <body>
   <h1>VRS LINK</h1>
-  <p>apakah anda iningin menggunakan web vrs? :</p>
-  <button onclick="cekData()">YA</button>
+  <p>Selamat datang! Klik tombol di bawah untuk melanjutkan ke verifikasi.</p>
+  <button onclick="cekData()">Verifikasi</button>
   <div id="status"></div>
   
   <div class="link-container">
